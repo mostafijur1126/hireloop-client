@@ -60,7 +60,7 @@ export default function Navbar() {
               <div className="h-6 w-px bg-white/10" />
 
               <Link
-                href="/login"
+                href="/auth/signin"
                 className="text-sm font-medium text-indigo-400 transition hover:text-indigo-300"
               >
                 Sign In
@@ -122,18 +122,19 @@ export default function Navbar() {
             <div className="h-px w-full bg-white/10" />
 
             <Link
-              href="/login"
+              href="/auth/signin"
               className="text-sm font-medium text-indigo-400 transition hover:text-indigo-300"
             >
               Sign In
             </Link>
-
-            <Button
-              radius="xl"
-              className="mt-2 w-full bg-white font-semibold text-black transition hover:bg-gray-200"
-            >
-              Get Started
-            </Button>
+            <Link href="/auth/signup">
+              <Button
+                radius="xl"
+                className="mt-2 w-full bg-white font-semibold text-black transition hover:bg-gray-200"
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>

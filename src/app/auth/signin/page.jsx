@@ -12,11 +12,10 @@ import {
 } from "@heroui/react";
 // Gravity UI Icons
 import { Eye, EyeSlash, ArrowLeft } from "@gravity-ui/icons";
-import { signUp } from "@/lib/auth-client";
-// Assuming you have your better-auth client configured here
+// Importing signIn counterpart from your auth-client
+import { signIn } from "@/lib/auth-client";
 
-export default function SignUpPage() {
-  const [name, setName] = useState("");
+export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,28 +27,25 @@ export default function SignUpPage() {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const handleSignUp = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      const { data, error } = await signUp.email({
+      const { data, error } = await signIn.email({
         email,
         password,
-        name,
+        callbackURL: "/", // Un-comment to auto-redirect after logging in
       });
 
       if (error) {
         setErrorMessage(
-          error.message || "Something went wrong. Please try again.",
+          error.message || "Invalid email or password. Please try again.",
         );
       } else {
-        setSuccessMessage(
-          "Account created successfully! Check your email or log in.",
-        );
-        setName("");
+        setSuccessMessage("Logged in successfully! Redirecting...");
         setEmail("");
         setPassword("");
       }
@@ -76,30 +72,14 @@ export default function SignUpPage() {
       {/* HeroUI v3 Card Container */}
       <Card className="w-full max-w-md p-2 shadow-2xl">
         <Card.Header className="flex flex-col items-start px-6 pt-6">
-          <Card.Title className="text-2xl font-bold">
-            Create an account
-          </Card.Title>
+          <Card.Title className="text-2xl font-bold">Welcome back</Card.Title>
           <Card.Description className="text-small text-default-500">
-            Enter your details to get started
+            Enter your credentials to access your account
           </Card.Description>
         </Card.Header>
 
         <Card.Content>
-          <form onSubmit={handleSignUp} className="flex flex-col gap-5">
-            {/* Name Input */}
-            <TextField name="name" required>
-              <Label className="text-sm font-medium text-default-700">
-                Name
-              </Label>
-              <Input
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                disabled={isLoading}
-              />
-            </TextField>
-
+          <form onSubmit={handleSignIn} className="flex flex-col gap-5">
             {/* Email Input */}
             <TextField name="email" type="email" required>
               <Label className="text-sm font-medium text-default-700">
@@ -165,19 +145,19 @@ export default function SignUpPage() {
               className="w-full mt-2 font-medium"
               disabled={isLoading}
             >
-              {isLoading ? "Signing Up..." : "Sign Up"}
+              {isLoading ? "Logging In..." : "Log In"}
             </Button>
           </form>
 
-          {/* Navigation link to sign-in page */}
+          {/* Navigation link to switch back to sign-up page */}
           <div className="text-center mt-4">
             <p className="text-small text-default-500">
-              Already have an account?{" "}
+              Don't have an account?{" "}
               <Link
-                href="/auth/signin"
+                href="/auth/signup"
                 className="text-primary hover:underline font-medium"
               >
-                Log In
+                Sign Up
               </Link>
             </p>
           </div>
