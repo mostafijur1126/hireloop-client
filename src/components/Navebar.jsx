@@ -66,12 +66,14 @@ export default function Navbar() {
                 Sign In
               </Link>
 
-              <Button
-                radius="xl"
-                className="bg-white px-6 font-semibold text-black transition hover:bg-gray-200"
-              >
-                Get Started
-              </Button>
+              <Link href="/auth/signup">
+                <Button
+                  radius="xl"
+                  className="bg-white px-6 font-semibold text-black transition hover:bg-gray-200"
+                >
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
 
