@@ -13,7 +13,7 @@ import {
 // Gravity UI Icons
 import { Eye, EyeSlash, ArrowLeft } from "@gravity-ui/icons";
 // Importing signIn counterpart from your auth-client
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export default function SignInPage() {
     setSuccessMessage("");
 
     try {
-      const { data, error } = await signIn.email({
+      const { data, error } = await authClient.signIn.email({
         email,
         password,
         callbackURL: "/", // Un-comment to auto-redirect after logging in

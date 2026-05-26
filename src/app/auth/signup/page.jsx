@@ -12,7 +12,7 @@ import {
 } from "@heroui/react";
 // Gravity UI Icons
 import { Eye, EyeSlash, ArrowLeft } from "@gravity-ui/icons";
-import { signUp } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 // Assuming you have your better-auth client configured here
 
 export default function SignUpPage() {
@@ -35,10 +35,11 @@ export default function SignUpPage() {
     setSuccessMessage("");
 
     try {
-      const { data, error } = await signUp.email({
+      const { data, error } = await authClient.signUp.email({
         email,
         password,
         name,
+        callbackURL: "/",
       });
 
       if (error) {

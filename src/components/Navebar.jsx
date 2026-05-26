@@ -4,9 +4,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { Bars, Xmark, Code } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+  const user = session?.user;
+  // console.log(isPending);
+
+  const handelSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/"); // redirect to login page
+        },
+      },
+    });
+  };
 
   return (
     <header className="w-full px-4 py-4">
@@ -59,21 +75,38 @@ export default function Navbar() {
               {/* Vertical Line */}
               <div className="h-6 w-px bg-white/10" />
 
-              <Link
-                href="/auth/signin"
-                className="text-sm font-medium text-indigo-400 transition hover:text-indigo-300"
-              >
-                Sign In
-              </Link>
+              {isPending ? (
+                <>loading...</>
+              ) : (
+                <>
+                  {user ? (
+                    <>
+                      Hi, {user.name}!
+                      <Button onClick={handelSignOut} variant="outline">
+                        SignOut
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/auth/signin"
+                        className="text-sm font-medium text-indigo-400 transition hover:text-indigo-300"
+                      >
+                        Sign In
+                      </Link>
 
-              <Link href="/auth/signup">
-                <Button
-                  radius="xl"
-                  className="bg-white px-6 font-semibold text-black transition hover:bg-gray-200"
-                >
-                  Get Started
-                </Button>
-              </Link>
+                      <Link href="/auth/signup">
+                        <Button
+                          radius="xl"
+                          className="bg-white px-6 font-semibold text-black transition hover:bg-gray-200"
+                        >
+                          Get Started
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
