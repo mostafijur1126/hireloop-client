@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Input, Switch, Button, Card } from "@heroui/react";
+import { Input, Switch, Button, Card, Toast, toast } from "@heroui/react";
 import {
   FiBriefcase,
   FiDollarSign,
   FiMapPin,
   FiFileText,
 } from "react-icons/fi";
+import { createjob } from "@/lib/actions/jobs";
+import { redirect } from "next/navigation";
 
 export default function PostJobPage() {
   // Mock Fetching Recruiter Company (Auto-filled on dashboard state init)
@@ -80,7 +82,12 @@ export default function PostJobPage() {
       status: "active", // Required per layout spec
       isPublic: true, // Required per layout spec
     };
-
+    const res = await createjob(payload);
+    if (res.insertedId) {
+      toast.success("Job Posted successfully!");
+      e.target.reset();
+      redirect("/dashboard/recruiter");
+    }
     console.log("Submitting Job Post payload:", payload);
 
     // Simulated API Request lag
@@ -140,6 +147,35 @@ export default function PostJobPage() {
               <h2 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider">
                 Job Information
               </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-zinc-300 text-xs font-medium">
+                  Job Title
+                </label>
+
+                <Input
+                  name="title"
+                  placeholder="e.g. Senior Frontend Engineer"
+                  value={formData.title}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-zinc-300 text-xs font-medium">
+                  Application Deadline
+                </label>
+
+                <Input
+                  name="deadline"
+                  type="date"
+                  value={formData.deadline}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
             </div>
 
             <div className="flex flex-col gap-2">
