@@ -13,12 +13,14 @@ import {
 // Gravity UI Icons
 import { Eye, EyeSlash, ArrowLeft } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
+import { Description, Radio, RadioGroup } from "@heroui/react";
 // Assuming you have your better-auth client configured here
 
 export default function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("seeker");
 
   // UI States
   const [isVisible, setIsVisible] = useState(false);
@@ -39,6 +41,7 @@ export default function SignUpPage() {
         email,
         password,
         name,
+        role,
         callbackURL: "/",
       });
 
@@ -62,7 +65,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4 dark:bg-zinc-900">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4 dark:bg-zinc-950">
       {/* Go Back Link */}
       <div className="mb-4 w-full max-w-md flex justify-start">
         <Link
@@ -75,7 +78,7 @@ export default function SignUpPage() {
       </div>
 
       {/* HeroUI v3 Card Container */}
-      <Card className="w-full max-w-md p-2 shadow-2xl">
+      <Card className="w-full max-w-md p-4 shadow-2xl">
         <Card.Header className="flex flex-col items-start px-6 pt-6">
           <Card.Title className="text-2xl font-bold">
             Create an account
@@ -85,7 +88,7 @@ export default function SignUpPage() {
           </Card.Description>
         </Card.Header>
 
-        <Card.Content>
+        <Card.Content className="px-6">
           <form onSubmit={handleSignUp} className="flex flex-col gap-5">
             {/* Name Input */}
             <TextField name="name" required>
@@ -126,7 +129,9 @@ export default function SignUpPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isLoading}
+                  className="w-full"
                 />
+
                 <InputGroup.Suffix>
                   <button
                     className="focus:outline-none text-default-400 hover:text-default-600 transition-colors"
@@ -144,6 +149,34 @@ export default function SignUpPage() {
                 </InputGroup.Suffix>
               </InputGroup>
             </TextField>
+
+            {/* Role selection */}
+            <div className="flex flex-col gap-4">
+              <Label>Subscription plan</Label>
+              <RadioGroup
+                defaultValue="seeker"
+                name="role"
+                orientation="horizontal"
+                onChange={(value) => setRole(value)}
+              >
+                <Radio value="seeker">
+                  <Radio.Control>
+                    <Radio.Indicator />
+                  </Radio.Control>
+                  <Radio.Content>
+                    <Label>Job Seeker</Label>
+                  </Radio.Content>
+                </Radio>
+                <Radio value="recruiter">
+                  <Radio.Control>
+                    <Radio.Indicator />
+                  </Radio.Control>
+                  <Radio.Content>
+                    <Label>Recruiter</Label>
+                  </Radio.Content>
+                </Radio>
+              </RadioGroup>
+            </div>
 
             {/* Error Message Feedback */}
             {errorMessage && (
