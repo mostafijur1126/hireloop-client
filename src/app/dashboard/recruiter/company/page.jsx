@@ -14,6 +14,7 @@ import {
   CircleExclamation,
   CircleXmark,
 } from "@gravity-ui/icons";
+import Image from "next/image";
 
 export default function CompanyProfilePage() {
   const [hasCompany, setHasCompany] = useState(false);
@@ -71,7 +72,7 @@ export default function CompanyProfilePage() {
       const formData = new FormData();
       formData.append("image", file);
 
-      const IMGBB_API_KEY = "YOUR_IMGBB_API_KEY";
+      const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_API;
 
       const response = await fetch(
         `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
@@ -108,6 +109,7 @@ export default function CompanyProfilePage() {
       setLoading(false);
       setHasCompany(true);
       setIsEditing(false);
+      console.log(company);
 
       alert("Company profile saved successfully!");
     }, 1200);
@@ -310,7 +312,7 @@ export default function CompanyProfilePage() {
                     className="w-full h-24 border-2 border-dashed border-zinc-800 bg-[#1c1c1e] rounded-xl flex items-center justify-center gap-3 cursor-pointer"
                   >
                     {company.logoUrl ? (
-                      <img
+                      <Image
                         src={company.logoUrl}
                         alt="Logo"
                         className="h-14 w-14 object-contain rounded-lg"
@@ -409,7 +411,7 @@ export default function CompanyProfilePage() {
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 bg-zinc-900 rounded-xl border border-zinc-800 flex items-center justify-center overflow-hidden">
               {company.logoUrl ? (
-                <img
+                <Image
                   src={company.logoUrl}
                   alt="Company Logo"
                   className="w-full h-full object-contain"
