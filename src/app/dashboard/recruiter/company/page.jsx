@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { Input, Button, Card } from "@heroui/react";
+import { Input, Button, Card, toast } from "@heroui/react";
 import {
   Factory,
   Globe,
@@ -15,6 +15,7 @@ import {
   CircleXmark,
 } from "@gravity-ui/icons";
 import Image from "next/image";
+import { createCompany } from "@/lib/actions/companys";
 
 export default function CompanyProfilePage() {
   const [hasCompany, setHasCompany] = useState(false);
@@ -105,13 +106,15 @@ export default function CompanyProfilePage() {
 
     setLoading(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       setLoading(false);
       setHasCompany(true);
       setIsEditing(false);
       console.log(company);
-
-      alert("Company profile saved successfully!");
+      const payload = await createCompany(company);
+      if (payload.insertedId) {
+        toast.success("Company profile saved successfully!");
+      }
     }, 1200);
   };
 
@@ -315,6 +318,8 @@ export default function CompanyProfilePage() {
                       <Image
                         src={company.logoUrl}
                         alt="Logo"
+                        width="200"
+                        height="200"
                         className="h-14 w-14 object-contain rounded-lg"
                       />
                     ) : (
@@ -414,6 +419,8 @@ export default function CompanyProfilePage() {
                 <Image
                   src={company.logoUrl}
                   alt="Company Logo"
+                  width="200"
+                  height="200"
                   className="w-full h-full object-contain"
                 />
               ) : (
