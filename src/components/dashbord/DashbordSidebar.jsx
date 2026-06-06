@@ -1,6 +1,7 @@
 import {
   Bars,
   Bell,
+  Briefcase,
   Envelope,
   Gear,
   House,
@@ -19,7 +20,11 @@ export function DashbordSidebar() {
       href: "/dashboard/recruiter/jobs/new",
       label: "Create A Jobs",
     },
-    { icon: Envelope, href: "", label: "Messages" },
+    {
+      icon: Briefcase,
+      href: "/dashboard/recruiter/company",
+      label: "Company Profile",
+    },
     { icon: Person, href: "", label: "Profile" },
     { icon: Gear, href: "", label: "Settings" },
   ];

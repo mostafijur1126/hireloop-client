@@ -1,12 +1,7 @@
 import React from "react";
 
-const companiesPage = () => {
-  return (
-    <div>
-      companiesPage
-      <h1>this is Companies Page</h1>
-    </div>
-  );
+const CompanyPage = () => {
+  return <div>CompanyPage</div>;
 };
 
-export default companiesPage;
+export default CompanyPage;
