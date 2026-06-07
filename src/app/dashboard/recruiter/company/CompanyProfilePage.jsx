@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Input, Button, Card, toast } from "@heroui/react";
 import {
   Factory,
@@ -18,24 +18,34 @@ import Image from "next/image";
 import { createCompany } from "@/lib/actions/companys";
 
 export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
-  const [hasCompany, setHasCompany] = useState(!!recruiterCompany);
+  // const [hasCompany, setHasCompany] = useState(!!recruiterCompany);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
+  console.log("Initial recruiter:", recruiterCompany);
 
-  const [company, setCompany] = useState(
-    recruiterCompany || {
-      name: "",
-      industry: "Technology",
-      websiteUrl: "",
-      location: "",
-      employeeCount: "1-10 employees",
-      logoUrl: "",
-      description: "",
-      status: "pending",
-      recruiterId: recruiter.id,
-    },
-  );
+  const [company, setCompany] = useState({});
+  useEffect(() => {
+    if (recruiterCompany) {
+      setCompany({
+        ...recruiterCompany,
+        recruiterId: recruiter.id,
+        status: "pending",
+      });
+    }
+  }, [recruiterCompany, recruiter.id]);
+  // recruiterCompany || {
+  //     name: "",
+  //     industry: "Technology",
+  //     websiteUrl: "",
+  //     location: "",
+  //     employeeCount: "1-10 employees",
+  //     logoUrl: "",
+  //     description: "",
+  //     status: "pending",
+  //     recruiterId: recruiter.id,
+  //   },
+  console.log("Initial company:", company);
 
   const fileInputRef = useRef(null);
 
@@ -106,19 +116,24 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-    setLoading(true);
-
-    setTimeout(async () => {
-      setLoading(false);
-      setHasCompany(true);
-      setIsEditing(false);
-      // console.log(company);
+    // console.log("Submitting company:", company);
+    try {
+      setLoading(true);
       const payload = await createCompany(company);
       if (payload.insertedId) {
+        setCompany((prev) => ({
+          ...prev,
+          _id: payload.insertedId,
+        }));
+        setIsEditing(false);
         toast.success("Company profile saved successfully!");
       }
-    }, 1200);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to save company profile");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const renderStatusBadge = () => {
@@ -149,7 +164,7 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
     }
   };
 
-  if (!hasCompany && !isEditing) {
+  if (!company._id && !isEditing) {
     return (
       <div className="w-full min-h-screen bg-black text-white p-6 flex items-center justify-center">
         <Card className="w-full max-w-lg bg-[#121212] border border-zinc-800 p-8 flex flex-col items-center text-center gap-5">

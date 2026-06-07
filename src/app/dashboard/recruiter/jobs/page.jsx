@@ -3,13 +3,15 @@ import React from "react";
 import { Table, Button } from "@heroui/react";
 // Using React Icons (Feather set) to perfectly match image_4f40a1.png
 import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { getLogedInRecruiterCompany } from "@/lib/api/companie";
 
 const AlljobsPage = async () => {
-  const companyId = "co_12345";
+  const company = await getLogedInRecruiterCompany();
 
   let jobs = [];
   try {
-    jobs = await getjobs(companyId);
+    jobs = await getjobs(company._id);
+    // console.log(jobs);
   } catch (error) {
     console.error("Error loading jobs:", error);
   }
@@ -66,7 +68,7 @@ const AlljobsPage = async () => {
               </Table.Header>
 
               <Table.Body>
-                {jobs && jobs.length > 0 ? (
+                {jobs && jobs?.length > 0 ? (
                   jobs.map((job) => (
                     <Table.Row
                       key={job._id}
@@ -166,13 +168,6 @@ const AlljobsPage = async () => {
                       No jobs posted yet. Create your first job to see it listed
                       here.
                     </Table.Cell>
-                    <Table.Cell className="hidden" />
-                    <Table.Cell className="hidden" />
-                    <Table.Cell className="hidden" />
-                    <Table.Cell className="hidden" />
-                    <Table.Cell className="hidden" />
-                    <Table.Cell className="hidden" />
-                    <Table.Cell className="hidden" />
                   </Table.Row>
                 )}
               </Table.Body>
