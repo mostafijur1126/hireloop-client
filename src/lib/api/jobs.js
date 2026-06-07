@@ -5,6 +5,11 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const getjobs = async () => {
   return serverFetch("/api/jobs");
 };
+
+export const getjobsById = async (jobId) => {
+  return serverFetch(`/api/jobs/${jobId}`);
+};
+
 export const getCompanyJobs = async (companyId) => {
   const status = "active";
   const res = await fetch(

@@ -13,6 +13,7 @@ import {
   BarsDescendingAlignCenter,
 } from "@gravity-ui/icons";
 import Image from "next/image";
+import Link from "next/link";
 
 // Helper functions
 function getJobId(id) {
@@ -121,16 +122,17 @@ export default function JobCard({ job }) {
       {/* Header: Logo, Company, Category, Status */}
       <Card.Header className="flex items-start justify-between gap-4 p-0 pb-4">
         <div className="flex items-center gap-3.5">
-          <div className="relative w-12 h-12 rounded-full bg-black text-white border-2 border-[#27272a] font-bold text-lg flex items-center justify-center shadow-inner">
-            <Image
-              radius="md"
-              src={companyLogo || undefined}
-              alt={title}
-              fill
-              className="object-cover"
-              name={companyName?.charAt(0) || "C"}
-              fallback={companyName?.charAt(0) || "C"}
-            />
+          <div className="relative w-12 h-12 rounded-full bg-black text-white border-2 border-[#27272a] font-bold text-lg flex items-center justify-center shadow-inner overflow-hidden">
+            {companyLogo ? (
+              <Image
+                src={companyLogo}
+                alt={title}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <span>{title?.charAt(0)?.toUpperCase()}</span>
+            )}
           </div>
           <div>
             <Card.Title className="text-xl font-bold text-white tracking-tight m-0 leading-tight">
@@ -253,8 +255,7 @@ export default function JobCard({ job }) {
 
       {/* Footer Action Button */}
       <Card.Footer className="p-0">
-        <Button
-          as="a"
+        <Link
           href={`/jobs/${jobId}`}
           isDisabled={isExpired || status !== "active"}
           className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold h-11 shadow-md transition-all duration-200 group-hover:shadow-lg"
@@ -262,7 +263,7 @@ export default function JobCard({ job }) {
           endContent={<ArrowUpRight width={16} height={16} />}
         >
           {isExpired ? "Application Closed" : "Apply for this Position"}
-        </Button>
+        </Link>
       </Card.Footer>
     </Card>
   );
