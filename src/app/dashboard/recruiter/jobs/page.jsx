@@ -1,16 +1,16 @@
-import { getjobs } from "@/lib/api/jobs";
 import React from "react";
 import { Table, Button } from "@heroui/react";
 // Using React Icons (Feather set) to perfectly match image_4f40a1.png
 import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
 import { getLogedInRecruiterCompany } from "@/lib/api/companie";
+import { getCompanyJobs } from "@/lib/api/jobs";
 
 const AlljobsPage = async () => {
   const company = await getLogedInRecruiterCompany();
 
   let jobs = [];
   try {
-    jobs = await getjobs(company._id);
+    jobs = await getCompanyJobs(company._id);
     // console.log(jobs);
   } catch (error) {
     console.error("Error loading jobs:", error);
