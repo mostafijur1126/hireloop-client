@@ -261,7 +261,8 @@ export default async function JobDetailsPage({ params }) {
 
           {/* Apply button */}
           <div className="p-6 sm:p-8 border-t border-[#27272a] bg-[#202024]/20">
-            <button
+            <Link
+              href={`/jobs/${id}/apply`}
               disabled={!isActive || isExpired}
               className={`w-full sm:w-auto px-8 py-3 rounded-lg font-semibold transition-all ${
                 !isActive || isExpired
@@ -272,7 +273,7 @@ export default async function JobDetailsPage({ params }) {
               {!isActive || isExpired
                 ? "Application Closed"
                 : "Apply for this position"}
-            </button>
+            </Link>
           </div>
         </div>
       </div>

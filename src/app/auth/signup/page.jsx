@@ -14,6 +14,7 @@ import {
 import { Eye, EyeSlash, ArrowLeft } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { Description, Radio, RadioGroup } from "@heroui/react";
+import { useRouter, useSearchParams } from "next/navigation";
 // Assuming you have your better-auth client configured here
 
 export default function SignUpPage() {
@@ -21,6 +22,10 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("seeker");
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   // UI States
   const [isVisible, setIsVisible] = useState(false);
@@ -42,7 +47,6 @@ export default function SignUpPage() {
         password,
         name,
         role,
-        callbackURL: "/",
       });
 
       if (error) {
@@ -56,6 +60,7 @@ export default function SignUpPage() {
         setName("");
         setEmail("");
         setPassword("");
+        router.push(redirectTo);
       }
     } catch (err) {
       setErrorMessage("An unexpected error occurred.");
@@ -208,7 +213,7 @@ export default function SignUpPage() {
             <p className="text-small text-default-500">
               Already have an account?{" "}
               <Link
-                href="/auth/signin"
+                href={`/auth/signin?redirect=${redirectTo}`}
                 className="text-primary hover:underline font-medium"
               >
                 Log In

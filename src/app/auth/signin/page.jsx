@@ -14,10 +14,14 @@ import {
 import { Eye, EyeSlash, ArrowLeft } from "@gravity-ui/icons";
 // Importing signIn counterpart from your auth-client
 import { authClient, signIn } from "@/lib/auth-client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  const searchParms = useSearchParams();
+  const redirectTo = searchParms.get("redirect") || "/";
 
   // UI States
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +41,7 @@ export default function SignInPage() {
       const { data, error } = await authClient.signIn.email({
         email,
         password,
-        callbackURL: "/", // Un-comment to auto-redirect after logging in
+        // callbackURL: "/", // Un-comment to auto-redirect after logging in
       });
 
       if (error) {
@@ -48,6 +52,7 @@ export default function SignInPage() {
         setSuccessMessage("Logged in successfully! Redirecting...");
         setEmail("");
         setPassword("");
+        router.push(redirectTo);
       }
     } catch (err) {
       setErrorMessage("An unexpected error occurred.");
@@ -154,7 +159,7 @@ export default function SignInPage() {
             <p className="text-small text-default-500">
               Don't have an account?{" "}
               <Link
-                href="/auth/signup"
+                href={`/auth/signup?redirect=${redirectTo}`}
                 className="text-primary hover:underline font-medium"
               >
                 Sign Up
