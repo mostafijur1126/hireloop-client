@@ -256,13 +256,21 @@ export default function JobCard({ job }) {
       {/* Footer Action Button */}
       <Card.Footer className="p-0">
         <Link
-          href={`/jobs/${jobId}`}
-          isDisabled={isExpired || status !== "active"}
-          className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold h-11 shadow-md transition-all duration-200 group-hover:shadow-lg"
-          radius="lg"
-          endContent={<ArrowUpRight width={16} height={16} />}
+          href={isExpired || status !== "active" ? "#" : `/jobs/${jobId}`}
+          className={`w-full h-11 flex items-center justify-center gap-2 rounded-lg font-bold shadow-md transition-all duration-200
+    ${
+      isExpired || status !== "active"
+        ? "bg-zinc-700 text-zinc-400 cursor-not-allowed pointer-events-none"
+        : "bg-[#2563eb] hover:bg-[#1d4ed8] text-white"
+    }`}
         >
-          {isExpired ? "Application Closed" : "Apply for this Position"}
+          <span>
+            {isExpired ? "Application Closed" : "Apply for this Position"}
+          </span>
+
+          {!isExpired && status === "active" && (
+            <ArrowUpRight width={16} height={16} />
+          )}
         </Link>
       </Card.Footer>
     </Card>

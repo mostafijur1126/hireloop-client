@@ -89,19 +89,30 @@ export default function JobSearchFilter({ jobs = [] }) {
       {/* Filters */}
       <div className="bg-[#18181b] border border-[#27272a] rounded-2xl p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Input
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search jobs..."
-            startContent={<Magnifier width={16} height={16} />}
-            endContent={
-              searchTerm ? (
-                <button onClick={() => setSearchTerm("")}>
-                  <SquareXmark width={14} height={14} />
-                </button>
-              ) : null
-            }
-          />
+          <div className="relative">
+            <Magnifier
+              width={16}
+              height={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"
+            />
+
+            <Input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search jobs..."
+              className="pl-10 pr-10"
+            />
+
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
+              >
+                <SquareXmark width={14} height={14} />
+              </button>
+            )}
+          </div>
 
           <Select
             selectedKeys={selectedType ? new Set([selectedType]) : new Set()}
