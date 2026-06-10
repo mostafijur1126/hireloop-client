@@ -260,9 +260,6 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
                     placeholder="company.com"
                     value={company.websiteUrl}
                     onChange={handleInputChange}
-                    // startContent={
-                    //   <span className="text-zinc-500 text-xs">https://</span>
-                    // }
                     required
                     className={{
                       inputWrapper: "bg-[#1c1c1e] border border-zinc-800",
@@ -281,13 +278,6 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
                     value={company.location}
                     onChange={handleInputChange}
                     required
-                    // startContent={
-                    //   <MapPin
-                    //     width={14}
-                    //     height={14}
-                    //     className="text-zinc-500"
-                    //   />
-                    // }
                     className={{
                       inputWrapper: "bg-[#1c1c1e] border border-zinc-800",
                     }}
@@ -423,7 +413,6 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
 
           <Button
             onClick={() => setIsEditing(true)}
-            // startContent={<Pencil width={14} height={14} />}
             className="bg-zinc-900 text-zinc-200 border border-zinc-800"
           >
             Edit Profile
