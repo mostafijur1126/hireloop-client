@@ -17,6 +17,7 @@ const PricingPage = () => {
   const seekerPlans = [
     {
       name: "Free",
+      id: "seeker_free",
       price: "$0",
       period: "forever",
       description: "Perfect for getting started",
@@ -31,6 +32,7 @@ const PricingPage = () => {
     },
     {
       name: "Pro",
+      id: "seeker_Pro",
       price: "$19",
       period: "/month",
       description: "For active job seekers",
@@ -45,6 +47,7 @@ const PricingPage = () => {
     },
     {
       name: "Premium",
+      id: "seeker_Premium",
       price: "$39",
       period: "/month",
       description: "Maximum visibility",
@@ -63,6 +66,7 @@ const PricingPage = () => {
   const recruiterPlans = [
     {
       name: "Free",
+      id: "recruiter_Free",
       price: "$0",
       period: "forever",
       description: "Great for first-year hiring",
@@ -76,6 +80,7 @@ const PricingPage = () => {
     },
     {
       name: "Growth",
+      id: "recruiter_Growth",
       price: "$49",
       period: "/month",
       description: "For scaling teams",
@@ -90,6 +95,7 @@ const PricingPage = () => {
     },
     {
       name: "Enterprise",
+      id: "recruiter_Enterprise",
       price: "$149",
       period: "/month",
       description: "Full recruitment suite",
@@ -193,6 +199,7 @@ const PricingPage = () => {
                 </ul>
                 <div>
                   <form action="/api/checkout_sessions" method="POST">
+                    <input type="hidden" name="plan_id" value={plan.id} />
                     <section>
                       <button
                         type="submit"

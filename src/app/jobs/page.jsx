@@ -3,6 +3,7 @@ import { getjobs } from "@/lib/api/jobs";
 
 const BrowseJobsPage = async () => {
   const jobs = await getjobs();
+  // console.log(jobs);
   return <JobSearchFilter jobs={jobs} />;
 };
 
