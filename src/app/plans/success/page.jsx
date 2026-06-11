@@ -44,8 +44,8 @@ export default async function Success({ searchParams }) {
     planId: metadata.planId,
   };
   // update the user table about the new plan
-  // const result = await CreateSubscriptons(subsInfo);
-  // console.log(result);
+  const result = await CreateSubscriptons(subsInfo);
+  console.log(result);
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">

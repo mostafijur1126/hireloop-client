@@ -32,7 +32,7 @@ const PricingPage = () => {
     },
     {
       name: "Pro",
-      id: "seeker_Pro",
+      id: "seeker_pro",
       price: "$19",
       period: "/month",
       description: "For active job seekers",
@@ -47,7 +47,7 @@ const PricingPage = () => {
     },
     {
       name: "Premium",
-      id: "seeker_Premium",
+      id: "seeker_premium",
       price: "$39",
       period: "/month",
       description: "Maximum visibility",
@@ -66,7 +66,7 @@ const PricingPage = () => {
   const recruiterPlans = [
     {
       name: "Free",
-      id: "recruiter_Free",
+      id: "recruiter_free",
       price: "$0",
       period: "forever",
       description: "Great for first-year hiring",
@@ -80,7 +80,7 @@ const PricingPage = () => {
     },
     {
       name: "Growth",
-      id: "recruiter_Growth",
+      id: "recruiter_growth",
       price: "$49",
       period: "/month",
       description: "For scaling teams",
@@ -95,7 +95,7 @@ const PricingPage = () => {
     },
     {
       name: "Enterprise",
-      id: "recruiter_Enterprise",
+      id: "recruiter_enterprise",
       price: "$149",
       period: "/month",
       description: "Full recruitment suite",
