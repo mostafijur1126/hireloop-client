@@ -11,6 +11,7 @@ import {
   FiArrowLeft,
   FiTrendingUp,
 } from "react-icons/fi";
+import { getPlanById } from "@/lib/api/plans";
 
 const ApplyJobsPage = async ({ params }) => {
   const { id } = await params;
@@ -46,10 +47,8 @@ const ApplyJobsPage = async ({ params }) => {
   }
 
   const applications = await getApplicationsByApplicant(user.id);
-  const plan = {
-    name: "Free",
-    maxApplicationsPerMonth: 3,
-  };
+
+  const plan = await getPlanById(user?.plan || "seeker_free");
 
   const job = await getjobsById(id);
 

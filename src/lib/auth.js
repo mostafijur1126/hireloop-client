@@ -19,6 +19,9 @@ export const auth = betterAuth({
         type: "string",
         default: "seeker",
       },
+      plan: {
+        default: "seeker_free",
+      },
     },
   },
 });

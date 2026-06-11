@@ -2,6 +2,7 @@ import { stripe } from "@/lib/stripe";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { FiCheckCircle, FiMail, FiHome, FiShoppingBag } from "react-icons/fi";
+import { CreateSubscriptons } from "@/lib/actions/subscriptions";
 
 export default async function Success({ searchParams }) {
   const { session_id } = await searchParams;
@@ -14,8 +15,14 @@ export default async function Success({ searchParams }) {
     expand: ["line_items", "payment_intent"],
   });
 
-  const { status, customer_details, line_items, amount_total, currency } =
-    session;
+  const {
+    status,
+    customer_details,
+    metadata,
+    line_items,
+    amount_total,
+    currency,
+  } = session;
   const customerEmail = customer_details?.email;
 
   if (status === "open") {
@@ -31,6 +38,14 @@ export default async function Success({ searchParams }) {
     style: "currency",
     currency: currency?.toUpperCase() || "USD",
   }).format((amount_total || 0) / 100);
+
+  const subsInfo = {
+    email: customerEmail,
+    planId: metadata.planId,
+  };
+  // update the user table about the new plan
+  // const result = await CreateSubscriptons(subsInfo);
+  // console.log(result);
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">

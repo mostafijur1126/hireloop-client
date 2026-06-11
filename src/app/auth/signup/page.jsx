@@ -41,12 +41,15 @@ export default function SignUpPage() {
     setErrorMessage("");
     setSuccessMessage("");
 
+    const plan = role === "seeker" ? "seeker_free" : "recruiter_Free";
+
     try {
       const { data, error } = await authClient.signUp.email({
         email,
         password,
         name,
         role,
+        plan,
       });
 
       if (error) {
