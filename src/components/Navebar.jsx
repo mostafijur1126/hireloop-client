@@ -24,6 +24,23 @@ export default function Navbar() {
     });
   };
 
+  const navLinks = [
+    { label: "Browse Jobs", href: "/jobs" },
+    { label: "Company", href: "/companies" },
+    { label: "Pricing", href: "/plans" },
+  ];
+
+  const dashboardLinks = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+  };
+  if (user?.email) {
+    navLinks.push({
+      label: "Dashboard",
+      href: dashboardLinks[user?.role || "seeker"],
+    });
+  }
+
   return (
     <header className="w-full px-4 py-4">
       <nav className="mx-auto max-w-7xl rounded-[28px] border border-white/10 bg-[#111214] px-4 py-4 shadow-2xl backdrop-blur-md md:px-6">
@@ -48,26 +65,15 @@ export default function Navbar() {
           <div className="hidden items-center gap-10 lg:flex">
             {/* Menu */}
             <div className="flex items-center gap-10 rounded-2xl border border-white/5 bg-white/[0.03] px-8 py-4">
-              <Link
-                href="/jobs"
-                className="text-sm font-medium text-gray-300 transition hover:text-white"
-              >
-                Browse Jobs
-              </Link>
-
-              <Link
-                href="/companies"
-                className="text-sm font-medium text-gray-300 transition hover:text-white"
-              >
-                Company
-              </Link>
-
-              <Link
-                href="/plans"
-                className="text-sm font-medium text-gray-300 transition hover:text-white"
-              >
-                Pricing
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-medium text-gray-300 transition hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
 
             {/* Right Side */}
@@ -130,26 +136,15 @@ export default function Navbar() {
           }`}
         >
           <div className="flex flex-col gap-4 rounded-2xl border border-white/5 bg-white/[0.03] p-5">
-            <Link
-              href="/jobs"
-              className="text-sm font-medium text-gray-300 transition hover:text-white"
-            >
-              Browse Jobs
-            </Link>
-
-            <Link
-              href="/companies"
-              className="text-sm font-medium text-gray-300 transition hover:text-white"
-            >
-              Company
-            </Link>
-
-            <Link
-              href="/pricing"
-              className="text-sm font-medium text-gray-300 transition hover:text-white"
-            >
-              Pricing
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-gray-300 transition hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
 
             {/* Divider */}
             <div className="h-px w-full bg-white/10" />

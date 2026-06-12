@@ -1,3 +1,4 @@
+import { getuserSession } from "@/lib/core/session";
 import {
   Bars,
   Bell,
@@ -10,9 +11,18 @@ import {
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
+import {
+  FiBookmark,
+  FiCreditCard,
+  FiFileText,
+  FiHome,
+  FiSearch,
+  FiSettings,
+} from "react-icons/fi";
 
-export function DashbordSidebar() {
-  const navItems = [
+export async function DashbordSidebar() {
+  const user = await getuserSession();
+  const recruiterNaveLinks = [
     { icon: House, href: "/dashboard/recruiter", label: "Home" },
     { icon: Magnifier, href: "/dashboard/recruiter/jobs", label: "Jobs" },
     {
@@ -28,6 +38,28 @@ export function DashbordSidebar() {
     { icon: Person, href: "", label: "Profile" },
     { icon: Gear, href: "", label: "Settings" },
   ];
+  const seekerNaveLinks = [
+    { icon: FiHome, href: "/dashboard/seeker", label: "Dashboard" },
+    { icon: FiSearch, href: "/dashboard/seeker/jobs", label: "Jobs" },
+    {
+      icon: FiBookmark,
+      href: "/dashboard/seeker/saved-jobs",
+      label: "Saved Jobs",
+    },
+    {
+      icon: FiFileText,
+      href: "/dashboard/seeker/applications",
+      label: "Applications",
+    },
+    { icon: FiCreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
+    { icon: FiSettings, href: "/dashboard/seeker/settings", label: "Settings" },
+  ];
+
+  const navLinksMap = {
+    seeker: seekerNaveLinks,
+    recruiter: recruiterNaveLinks,
+  };
+  const navItems = navLinksMap[user?.role || "seeker"];
 
   const navContent = (
     <nav className="flex flex-col gap-1">
