@@ -22,30 +22,27 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
-  console.log("Initial recruiter:", recruiterCompany);
+  // console.log("Initial recruiter:", recruiterCompany);
 
-  const [company, setCompany] = useState({});
+  const [company, setCompany] = useState({
+    name: "",
+    industry: "Technology",
+    websiteUrl: "",
+    location: "",
+    employeeCount: "1-10 employees",
+    logoUrl: "",
+    description: "",
+    status: "pending",
+  });
   useEffect(() => {
     if (recruiterCompany) {
       setCompany({
         ...recruiterCompany,
         recruiterId: recruiter.id,
-        status: "pending",
+        status: recruiterCompany.status || "pending",
       });
     }
   }, [recruiterCompany, recruiter.id]);
-  // recruiterCompany || {
-  //     name: "",
-  //     industry: "Technology",
-  //     websiteUrl: "",
-  //     location: "",
-  //     employeeCount: "1-10 employees",
-  //     logoUrl: "",
-  //     description: "",
-  //     status: "pending",
-  //     recruiterId: recruiter.id,
-  //   },
-  console.log("Initial company:", company);
 
   const fileInputRef = useRef(null);
 
@@ -220,7 +217,7 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
                   <Input
                     name="name"
                     placeholder="Acme Corp"
-                    value={company.name}
+                    value={company.name || ""}
                     onChange={handleInputChange}
                     required
                     className={{
@@ -236,7 +233,7 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
 
                   <select
                     name="industry"
-                    value={company.industry}
+                    value={company.industry || "Technology"}
                     onChange={handleInputChange}
                     className="w-full bg-[#1c1c1e] border border-zinc-800 rounded-xl px-3 h-10 text-sm text-white outline-none"
                   >
@@ -258,7 +255,7 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
                   <Input
                     name="websiteUrl"
                     placeholder="company.com"
-                    value={company.websiteUrl}
+                    value={company.websiteUrl || ""}
                     onChange={handleInputChange}
                     required
                     className={{
@@ -275,7 +272,7 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
                   <Input
                     name="location"
                     placeholder="City, Country"
-                    value={company.location}
+                    value={company.location || ""}
                     onChange={handleInputChange}
                     required
                     className={{
@@ -293,7 +290,7 @@ export default function CompanyProfilePage({ recruiter, recruiterCompany }) {
 
                   <select
                     name="employeeCount"
-                    value={company.employeeCount}
+                    value={company.employeeCount || "1-10 employees"}
                     onChange={handleInputChange}
                     className="w-full bg-[#1c1c1e] border border-zinc-800 rounded-xl px-3 h-10 text-sm text-white outline-none"
                   >
