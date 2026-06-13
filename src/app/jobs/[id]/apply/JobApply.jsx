@@ -33,6 +33,7 @@ const JobApply = ({ job, applicant }) => {
       portfolioUrl: formData.portfolioUrl,
       linkedinUrl: formData.linkedinUrl,
       coverLetter: formData.coverLetter,
+      status: "applied",
     };
 
     try {

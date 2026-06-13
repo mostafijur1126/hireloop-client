@@ -13,11 +13,14 @@ import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 import {
   FiBookmark,
+  FiBriefcase,
   FiCreditCard,
   FiFileText,
+  FiGrid,
   FiHome,
   FiSearch,
   FiSettings,
+  FiUsers,
 } from "react-icons/fi";
 
 export async function DashbordSidebar() {
@@ -54,10 +57,27 @@ export async function DashbordSidebar() {
     { icon: FiCreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
     { icon: FiSettings, href: "/dashboard/seeker/settings", label: "Settings" },
   ];
+  const adminNavLinks = [
+    { icon: FiHome, href: "/dashboard/admin", label: "Dashboard" },
+    { icon: FiUsers, href: "/dashboard/admin/users", label: "Users" },
+    {
+      icon: FiBriefcase,
+      href: "/dashboard/admin/companies",
+      label: "Companies",
+    },
+    { icon: FiGrid, href: "/dashboard/admin/jobs", label: "Jobs" },
+    {
+      icon: FiCreditCard,
+      href: "/dashboard/admin/payments",
+      label: "Payments",
+    },
+    { icon: FiSettings, href: "/dashboard/admin/settings", label: "Settings" },
+  ];
 
   const navLinksMap = {
     seeker: seekerNaveLinks,
     recruiter: recruiterNaveLinks,
+    admin: adminNavLinks,
   };
   const navItems = navLinksMap[user?.role || "seeker"];
 

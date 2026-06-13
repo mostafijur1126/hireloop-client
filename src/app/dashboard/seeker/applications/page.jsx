@@ -43,6 +43,7 @@ const ApplicationsPage = async () => {
   }
 
   const applications = await getApplicationsByApplicant(user.id);
+  console.log(applications);
 
   // For demo purposes, add mock job type/location and status.
   // In a real app, these fields would come from the API.
