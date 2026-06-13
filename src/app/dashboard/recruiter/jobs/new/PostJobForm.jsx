@@ -130,7 +130,7 @@ export default function PostJobForm({ companydata }) {
             </div>
           </div>
           <div>
-            {companydata.isApproved ? (
+            {companydata.status === "Approved" ? (
               <span className="px-2.5 py-1 text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
                 Approved to Post
               </span>
@@ -141,10 +141,10 @@ export default function PostJobForm({ companydata }) {
             )}
           </div>
         </Card>
-        {companydata.status !== "approved" && (
+        {companydata.status !== "Approved" && (
           <div>Please wait to get approval</div>
         )}
-        {companydata.status === "approved" && (
+        {companydata.status === "Approved" && (
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             {/* Section: Job Info Fields */}
             <Card className="bg-[#121212] border border-zinc-800 p-5 flex flex-col gap-5 shadow-sm">
