@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getToken } from "./session";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -33,6 +34,16 @@ export const serverMutation = async (path, data, method = "POST") => {
     },
     body: JSON.stringify(data),
   });
-  // handel 401, 404, 403
+  // console.log(res.status);
+  return handelStatusCode(res);
+};
+
+// handel 401, 404, 403
+const handelStatusCode = (res) => {
+  if (res.status === 401) {
+    redirect("/unauthorized");
+  } else if (res.status === 403) {
+    redirect("/unauthorized");
+  }
   return res.json();
 };
