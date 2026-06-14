@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const authHeader = async () => {
   const token = await getToken();
   const header = {
-    authorization: `Bearer : ${token};`,
+    authorization: `Bearer ${token}`,
   };
   return token ? header : {};
 };
