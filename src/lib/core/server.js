@@ -14,7 +14,7 @@ export const authHeader = async () => {
 export const serverFetch = async (path) => {
   const res = await fetch(`${baseUrl}${path}`);
   // handle 401,403
-  return res.json();
+  return handelStatusCode(res);
 };
 
 export const protectedFetch = async (path) => {
@@ -22,7 +22,7 @@ export const protectedFetch = async (path) => {
     headers: await authHeader(),
   });
   // handle 401,403
-  return res.json();
+  return handelStatusCode(res);
 };
 
 export const serverMutation = async (path, data, method = "POST") => {
@@ -43,7 +43,7 @@ const handelStatusCode = (res) => {
   if (res.status === 401) {
     redirect("/unauthorized");
   } else if (res.status === 403) {
-    redirect("/unauthorized");
+    redirect("/forbidden");
   }
   return res.json();
 };
