@@ -11,7 +11,7 @@ const CompanyTable = ({ companies }) => {
     const result = await updateCompany(id, { status: "Approved" });
     if (result.modifiedCount) {
       toast.success("update Successfull!");
-      console.log(`Approved company with ID: ${id}`, result);
+      // console.log(`Approved company with ID: ${id}`, result);
     }
   };
 
@@ -19,7 +19,7 @@ const CompanyTable = ({ companies }) => {
     const result = await updateCompany(id, { status: "Rejected" });
     if (result.modifiedCount) {
       toast.danger("update Successfull!");
-      console.log(`Approved company with ID: ${id}`, result);
+      // console.log(`Approved company with ID: ${id}`, result);
     }
   };
 
