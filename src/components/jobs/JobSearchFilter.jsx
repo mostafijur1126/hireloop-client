@@ -53,11 +53,11 @@ export default function JobSearchFilter({ jobs, filters, total }) {
       sp.set("type", selectedType);
     }
     if (selectedCategory !== "all") {
-      sp.set("jobCategory", selectedCategory);
+      sp.set("category", selectedCategory);
     }
 
     if (isRemoteOnly) {
-      sp.set("isRemote", true);
+      sp.set("isRemoteOnly", true);
     }
 
     if (page) {

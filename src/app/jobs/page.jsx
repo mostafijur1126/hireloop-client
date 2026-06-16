@@ -5,10 +5,10 @@ const BrowseJobsPage = async ({ searchParams }) => {
   const filters = await searchParams;
   const filterObj = {
     ...filters,
-    isRemote: filters.isRemote === "true" ? true : false,
+    isRemoteOnly: filters.isRemoteOnly === "true" ? true : false,
   };
 
-  const querySearch = new URLSearchParams(filterObj);
+  const querySearch = new URLSearchParams(filters);
   const queryString = querySearch.toString();
 
   const jobs = await getjobs(queryString);
